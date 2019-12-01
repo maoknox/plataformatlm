@@ -1,0 +1,231 @@
+2019/11/27 18:15:41 [error] [exception.CHttpException.404] CHttpException: The requested view "index" was not found. in /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CViewAction.php:112
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CViewAction.php(123): CViewAction->resolveView('index')
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CAction.php(76): CViewAction->run()
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CAction->runWithParams(Array)
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CViewAction))
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CViewAction), Array)
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('page')
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/page')
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /var/www/html/telemed/index.php(13): CApplication->run()
+#9 {main}
+REQUEST_URI=/telemed/index.php/site/page
+HTTP_REFERER=http://localhost/telemed/index.php
+---
+2019/11/27 18:17:14 [error] [exception.CHttpException.404] CHttpException: The requested view "index" was not found. in /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CViewAction.php:112
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CViewAction.php(123): CViewAction->resolveView('index')
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CAction.php(76): CViewAction->run()
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CAction->runWithParams(Array)
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CViewAction))
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CViewAction), Array)
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('page')
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/page/about')
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /var/www/html/telemed/index.php(13): CApplication->run()
+#9 {main}
+REQUEST_URI=/telemed/index.php/site/page/about
+HTTP_REFERER=http://localhost/telemed/index.php/site/page?view=about
+---
+2019/11/27 18:17:23 [error] [exception.CHttpException.404] CHttpException: The requested view "index" was not found. in /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CViewAction.php:112
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CViewAction.php(123): CViewAction->resolveView('index')
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CAction.php(76): CViewAction->run()
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CAction->runWithParams(Array)
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CViewAction))
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CViewAction), Array)
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('page')
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/page/about')
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#8 /var/www/html/telemed/index.php(13): CApplication->run()
+#9 {main}
+REQUEST_URI=/telemed/index.php/site/page/about
+HTTP_REFERER=http://localhost/telemed/index.php/site/page?view=about
+---
+2019/11/29 19:59:05 [error] [exception.ParseError] ParseError: syntax error, unexpected '$conn' (T_VARIABLE), expecting ';' in /var/www/html/telemed/protected/views/layouts/main.php:106
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(206): COutputProcessor->run()
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#6 /var/www/html/telemed/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require('/var/www/html/t...')
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(784): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#10 /var/www/html/telemed/protected/controllers/SiteController.php(98): CController->render('login', Array)
+#11 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#12 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#13 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#14 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('login')
+#16 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#17 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#18 /var/www/html/telemed/index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/telemed/index.php/site/login
+HTTP_REFERER=http://localhost/telemed/index.php
+---
+2019/11/29 19:59:40 [error] [exception.CDbException] CDbException: CDbConnection failed to open the DB connection: could not find driver in /var/www/html/telemed/vendor/square1-io/yii-framework/db/CDbConnection.php:382
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/db/CDbConnection.php(330): CDbConnection->open()
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/db/CDbConnection.php(308): CDbConnection->setActive(true)
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CModule.php(387): CDbConnection->init()
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CModule.php(103): CModule->getComponent('db')
+#4 /var/www/html/telemed/protected/views/layouts/main.php(106): CModule->__get('db')
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require('/var/www/html/t...')
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#10 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(206): COutputProcessor->run()
+#11 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#12 /var/www/html/telemed/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#13 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require('/var/www/html/t...')
+#14 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#15 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(784): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#16 /var/www/html/telemed/protected/controllers/SiteController.php(98): CController->render('login', Array)
+#17 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#18 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#19 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#20 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#21 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('login')
+#22 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#23 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#24 /var/www/html/telemed/index.php(13): CApplication->run()
+#25 {main}
+REQUEST_URI=/telemed/index.php/site/login
+---
+2019/11/29 20:06:05 [error] [php] Use of undefined constant sql - assumed 'sql' (/var/www/html/telemed/protected/views/layouts/main.php:108)
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(76): SiteController->renderFile()
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate()
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput()
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(206): CContentDecorator->run()
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(300): SiteController->endWidget()
+#5 /var/www/html/telemed/protected/views/layouts/column1.php(6): SiteController->endContent()
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require()
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): SiteController->renderInternal()
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(784): SiteController->renderFile()
+#9 /var/www/html/telemed/protected/controllers/SiteController.php(98): SiteController->render()
+#10 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#11 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams()
+#12 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): SiteController->runAction()
+#13 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): SiteController->runActionWithFilters()
+#14 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): SiteController->run()
+#15 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController()
+#16 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#17 /var/www/html/telemed/index.php(13): CWebApplication->run()
+REQUEST_URI=/telemed/index.php/site/login
+in /var/www/html/telemed/protected/views/layouts/main.php (108)
+in /var/www/html/telemed/protected/views/layouts/column1.php (6)
+in /var/www/html/telemed/protected/controllers/SiteController.php (98)
+2019/11/29 21:06:00 [error] [exception.Error] Error: Call to undefined function prin_r() in /var/www/html/telemed/protected/views/layouts/main.php:105
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require()
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(206): COutputProcessor->run()
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#7 /var/www/html/telemed/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require('/var/www/html/t...')
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#10 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(784): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#11 /var/www/html/telemed/protected/controllers/SiteController.php(32): CController->render('index')
+#12 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#13 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#14 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#15 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#16 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('')
+#17 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#18 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#19 /var/www/html/telemed/index.php(13): CApplication->run()
+#20 {main}
+REQUEST_URI=/telemed/index.php
+HTTP_REFERER=http://localhost/telemed/index.php/site/login
+---
+2019/11/29 21:14:46 [error] [exception.ParseError] ParseError: syntax error, unexpected '.' in /var/www/html/telemed/protected/views/layouts/main.php:105
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(76): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/CContentDecorator.php(54): CContentDecorator->decorate('<div id="conten...')
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/widgets/COutputProcessor.php(44): CContentDecorator->processOutput('<div id="conten...')
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(206): COutputProcessor->run()
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(300): CBaseController->endWidget('CContentDecorat...')
+#6 /var/www/html/telemed/protected/views/layouts/column1.php(6): CBaseController->endContent()
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(126): require('/var/www/html/t...')
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CBaseController.php(95): CBaseController->renderInternal('/var/www/html/t...', Array, true)
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(784): CBaseController->renderFile('/var/www/html/t...', Array, true)
+#10 /var/www/html/telemed/protected/controllers/SiteController.php(32): CController->render('index')
+#11 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionIndex()
+#12 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#13 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#14 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#15 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('')
+#16 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('')
+#17 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#18 /var/www/html/telemed/index.php(13): CApplication->run()
+#19 {main}
+REQUEST_URI=/telemed/index.php
+---
+2019/11/29 21:17:16 [error] [exception.ParseError] ParseError: syntax error, unexpected 'furnction' (T_STRING), expecting function (T_FUNCTION) or const (T_CONST) in /var/www/html/telemed/protected/components/UserIdentity.php:43
+Stack trace:
+#0 [internal function]: YiiBase::autoload('UserIdentity')
+#1 /var/www/html/telemed/protected/models/LoginForm.php(51): spl_autoload_call('UserIdentity')
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/validators/CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/validators/CValidator.php(213): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CModel.php(159): CValidator->validate(Object(LoginForm), Array)
+#5 /var/www/html/telemed/protected/controllers/SiteController.php(94): CModel->validate()
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('login')
+#11 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#12 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/html/telemed/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/telemed/index.php/site/login
+HTTP_REFERER=http://localhost/telemed/index.php/site/login
+---
+2019/11/29 21:18:18 [error] [php] Trying to get property of non-object (/var/www/html/telemed/protected/components/UserIdentity.php:39)
+Stack trace:
+#0 /var/www/html/telemed/vendor/square1-io/yii-framework/validators/CValidator.php(213): CInlineValidator->validateAttribute()
+#1 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CModel.php(159): CInlineValidator->validate()
+#2 /var/www/html/telemed/protected/controllers/SiteController.php(94): LoginForm->validate()
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams()
+#5 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): SiteController->runAction()
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): SiteController->runActionWithFilters()
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): SiteController->run()
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController()
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#10 /var/www/html/telemed/index.php(13): CWebApplication->run()
+REQUEST_URI=/telemed/index.php/site/login
+in /var/www/html/telemed/protected/components/UserIdentity.php (39)
+in /var/www/html/telemed/protected/models/LoginForm.php (52)
+in /var/www/html/telemed/protected/controllers/SiteController.php (94)
+2019/11/30 22:07:18 [error] [exception.CException] CException: Property "UserIdentity.id" is read only. in /var/www/html/telemed/vendor/square1-io/yii-framework/base/CComponent.php:170
+Stack trace:
+#0 /var/www/html/telemed/protected/components/UserIdentity.php(32): CComponent->__set('id', 2)
+#1 /var/www/html/telemed/protected/models/LoginForm.php(52): UserIdentity->authenticate()
+#2 /var/www/html/telemed/vendor/square1-io/yii-framework/validators/CInlineValidator.php(42): LoginForm->authenticate('password', Array)
+#3 /var/www/html/telemed/vendor/square1-io/yii-framework/validators/CValidator.php(213): CInlineValidator->validateAttribute(Object(LoginForm), 'password')
+#4 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CModel.php(159): CValidator->validate(Object(LoginForm), Array)
+#5 /var/www/html/telemed/protected/controllers/SiteController.php(94): CModel->validate()
+#6 /var/www/html/telemed/vendor/square1-io/yii-framework/web/actions/CInlineAction.php(49): SiteController->actionLogin()
+#7 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#8 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#9 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#10 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(282): CController->run('login')
+#11 /var/www/html/telemed/vendor/square1-io/yii-framework/web/CWebApplication.php(141): CWebApplication->runController('site/login')
+#12 /var/www/html/telemed/vendor/square1-io/yii-framework/base/CApplication.php(180): CWebApplication->processRequest()
+#13 /var/www/html/telemed/index.php(13): CApplication->run()
+#14 {main}
+REQUEST_URI=/telemed/index.php/site/login
+HTTP_REFERER=http://localhost/telemed/index.php/site/login
+---

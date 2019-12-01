@@ -1,0 +1,14 @@
+{
+    "require": {
+        "php": "=7.1.33",
+        "square1-io/yii-framework": "1.1.14",
+        "aws/aws-sdk-php": "2.*",
+        "zendesk/zendesk_api_client_php": "dev-master",
+        "google/apiclient":"v2.0.0-RC7",
+        "phpmailer/phpmailer": "dev-master",
+	"ext-mbstring": "*"
+    },
+    "require-dev": {
+	"ext-mbstring": "*"
+    }
+}
