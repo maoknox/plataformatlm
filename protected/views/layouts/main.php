@@ -27,13 +27,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- Material Kit CSS -->
   <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/material-dashboard.css?v=2.1.0" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
-  <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/demo/demo.css" rel="stylesheet" />
+  
 </head>
-
-<body>
-  <div class="wrapper ">
-  	<?php if(!Yii::app()->user->isGuest):?>
+<?php if(!Yii::app()->user->isGuest):?>
+<body>  
+  <div class="wrapper">
 	    <div class="sidebar" data-color="azure" data-background-color="white">
 	      <!--
 	      Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
@@ -95,7 +93,6 @@
 	        </ul>
 	      </div>
 	    </div>
-	<?php endif?>
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -146,7 +143,7 @@
 	                </a>
 	              </li>
 				
-				<?php endif;?>
+				        <?php endif;?>
               <?php echo Yii::app()->user->id."-------------";endif;?>
             </ul>
           </div>
@@ -181,12 +178,19 @@
       </footer>
     </div>
   </div>
+
    <!--   Core JS Files   -->
   <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/core/jquery.min.js"></script>
   <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/core/popper.min.js"></script>
   <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/core/bootstrap-material-design.min.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/material-dashboard.js?v=2.1.0" type="text/javascript"></script>
-</body>
 
+</body>
+  <?php else:?>
+
+<?php echo $content; ?>
+  <?php 
+endif;
+  ?>
 </html>
