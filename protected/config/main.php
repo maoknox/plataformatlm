@@ -8,7 +8,7 @@
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'My Web Application',
-
+	'language'=>'es',
 	// preloading 'log' component
 	'preload'=>array('log'),
 
@@ -53,12 +53,12 @@ return array(
 		// 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		// ),
 		// uncomment the following to use a MySQL database
-		
+
 		'db'=>array(
-			'connectionString' => 'pgsql:host=localhost;dbname=telemed',
+			'connectionString' => 'pgsql:host='.getenv("TELEMED_HOST").';dbname='.getenv("TELEMED_DB"),
 			// 'emulatePrepare' => true,
-			'username' => 'maoknox',
-			'password' => 'Nevulos$',
+			'username' => getenv("TELEMED_UNAME"),
+			'password' => getenv("TELEMED_PSSWD"),
 			'charset' => 'utf8',
 		),
 		
@@ -73,21 +73,29 @@ return array(
 			'itemChildTable'=>'authitemchild', // Tabla que contiene los elementos padre-hijo
 			'assignmentTable'=>'authassignment',// Tabla que contiene la signacion usuario-autorizacio
 	    ),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
-			),
-		),
+            'log'=>array(
+                    'class'=>'CLogRouter',
+                    'routes'=>array(
+                            array(
+                                    'class'=>'CFileLogRoute',
+                                    'levels'=>'error, warning',
+                            ),
+                            // uncomment the following to show log messages on web pages
+                            /*
+                            array(
+                                    'class'=>'CWebLogRoute',
+                            ),
+                            */
+                    ),
+            ),
+            'clientScript'=>array(
+                    'packages'=>array(
+                        'jquery'=>array(
+                            'baseUrl'=>'https://code.jquery.com/',
+                            'js'=>array('jquery-2.2.3.min.js'),
+                        )
+                    ),
+                ),
 	),
 
 	// application-level parameters that can be accessed

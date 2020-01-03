@@ -81,7 +81,7 @@ class Person extends CActiveRecord
 			'person_number_id' => 'Person Number',
 			'person_name' => 'Person Name',
 			'person_lastname' => 'Person Lastname',
-			'username' => 'Username',
+			'username' => 'Nombre de usuario',
 			'password' => 'Password',
 		);
 	}
@@ -118,7 +118,11 @@ class Person extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-
+        public static function validateAccess(){
+            
+            Yii::app()->user->checkAccess("AdministradorUsuarios");
+            return $result;
+        }
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -129,4 +133,9 @@ class Person extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public static function getRole(){
+            $idPerson=Yii::app()->user->getId(); 
+            $personRole;
+        }
 }

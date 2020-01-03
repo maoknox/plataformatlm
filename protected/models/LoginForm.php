@@ -37,6 +37,7 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			'rememberMe'=>'Remember me next time',
+                         'username' => 'Nombre de usuario',
 		);
 	}
 
@@ -50,7 +51,7 @@ class LoginForm extends CFormModel
 		{
 			$this->_identity=new UserIdentity($this->username,$this->password);
 			if(!$this->_identity->authenticate())
-				$this->addError('password','Incorrect username or password.');
+				$this->addError('password','Usuario o password incorrectos.');
 		}
 	}
 
@@ -74,4 +75,5 @@ class LoginForm extends CFormModel
 		else
 			return false;
 	}
+        
 }

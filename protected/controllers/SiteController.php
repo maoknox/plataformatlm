@@ -1,7 +1,38 @@
 <?php
 
-class SiteController extends Controller
-{
+class SiteController extends Controller{
+     /**
+    * Acción que se ejecuta en segunda instancia para verificar si el usuario tiene sesión activa.
+    * En caso contrario no podrá acceder a los módulos del aplicativo y generará error de acceso.
+    */
+    public function filterEnforcelogin($filterChain){
+        if(Yii::app()->user->isGuest){
+            if(isset($_POST) && !empty($_POST)){
+                $response["status"]="nosession";
+                echo CJSON::encode($response);
+                exit();
+            }
+            else{
+                Yii::app()->user->returnUrl = array("site/login");                                                          
+                $this->redirect(Yii::app()->user->returnUrl);
+            }
+        }
+        else{
+            if(!isset($_POST)){
+                Yii::app()->user->returnUrl = array("site/index");          
+                $this->redirect(Yii::app()->user->returnUrl);
+            }
+        }
+        $filterChain->run();
+    }
+    /**
+     * @return array action filters
+     */
+    public function filters(){
+        return array(
+                'enforcelogin -login -logout -contact -registerPlatform -searchservices ',                      
+        );
+    }
 	/**
 	 * Declares class-based actions.
 	 */
@@ -92,9 +123,10 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+                            Yii::app()->user->returnUrl = array("site/index");                                                          
+                            $this->redirect(Yii::app()->user->returnUrl);
 		}
-		// display the login form
+//		 display the login form
 		$this->render('login',array('model'=>$model));
 	}
 
