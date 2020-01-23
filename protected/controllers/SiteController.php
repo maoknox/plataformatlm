@@ -56,11 +56,13 @@ class SiteController extends Controller{
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
-	public function actionIndex()
-	{
+	public function actionIndex(){
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+            $userRole=Euser::getRole();
+            $userId=Yii::app()->user->getId();            
+            $entityUser= EntityUser::model()->findByAttributes(array("euser_id"=>$userId));                                    
+            $this->render('index',array("userRole"=>$userRole,'entityUser'=>$entityUser));
 	}
 
 	/**

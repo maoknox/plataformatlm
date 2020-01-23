@@ -18,8 +18,8 @@ class UserIdentity extends CUserIdentity
 	private $_id;
 	public function authenticate(){
 		$criteria = new CDbCriteria;
-        $criteria->select = 'password,person_id';        
-        $userFromDb=  Person::model()->findByAttributes(array('username'=>$this->username),$criteria);
+        $criteria->select = 'password,euser_id';        
+        $userFromDb= Euser::model()->findByAttributes(array('username'=>$this->username),$criteria);
         if(!is_object($userFromDb) && !isset($userFromDb->username)){
                 $this->errorCode=self::ERROR_USERNAME_INVALID;
         }
@@ -28,7 +28,7 @@ class UserIdentity extends CUserIdentity
                 $this->errorCode=self::ERROR_PASSWORD_INVALID;
             }
             else{
-            	$this->_id= $userFromDb->person_id;
+            	$this->_id= $userFromDb->euser_id;
                 
                 $this->errorCode=self::ERROR_NONE;
                 // $modelPerson=  Person::model()->findByPk($userFromDb->id_person);
