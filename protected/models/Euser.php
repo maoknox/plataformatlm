@@ -7,6 +7,10 @@
  * @property integer $euser_id
  * @property string $username
  * @property string $password
+ * @property string $euser_name
+ * @property string $euser_lastname
+ * @property string $euser_phone
+ * @property string $euser_celphone
  *
  * The followings are the available model relations:
  * @property Authitem[] $authitems
@@ -33,9 +37,10 @@ class Euser extends CActiveRecord
 		return array(
 			array('username, password', 'required'),
 			array('username', 'length', 'max'=>25),
+			array('euser_name, euser_lastname, euser_phone, euser_celphone', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('euser_id, username, password', 'safe', 'on'=>'search'),
+			array('euser_id, username, password, euser_name, euser_lastname, euser_phone, euser_celphone', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,6 +67,10 @@ class Euser extends CActiveRecord
 			'euser_id' => 'Euser',
 			'username' => 'Username',
 			'password' => 'Password',
+			'euser_name' => 'Euser Name',
+			'euser_lastname' => 'Euser Lastname',
+			'euser_phone' => 'Euser Phone',
+			'euser_celphone' => 'Euser Celphone',
 		);
 	}
 
@@ -86,6 +95,10 @@ class Euser extends CActiveRecord
 		$criteria->compare('euser_id',$this->euser_id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
+		$criteria->compare('euser_name',$this->euser_name,true);
+		$criteria->compare('euser_lastname',$this->euser_lastname,true);
+		$criteria->compare('euser_phone',$this->euser_phone,true);
+		$criteria->compare('euser_celphone',$this->euser_celphone,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

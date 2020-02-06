@@ -61,8 +61,15 @@ class SiteController extends Controller{
 		// using the default layout 'protected/views/layouts/main.php'
             $userRole=Euser::getRole();
             $userId=Yii::app()->user->getId();            
-            $entityUser= EntityUser::model()->findByAttributes(array("euser_id"=>$userId));                                    
-            $this->render('index',array("userRole"=>$userRole,'entityUser'=>$entityUser));
+            $entityUser= EntityUser::model()->findByAttributes(array("euser_id"=>$userId));
+            if($userRole->role_name=='super_usuario'){
+                $serviceEntity= ServiceEntity::model()->findAllByAttributes(array("entity_id"=>$entityUser->entity_id));
+                $this->render('index',array("userRole"=>$userRole,'entityUser'=>$entityUser,"serviceEntity"=>$serviceEntity));
+            }
+            elseif($userRole->role_name=='usuario_cliente'){
+                $servicesEntity= ServiceEntity::model()->findAllByAttributes(array("entity_id"=>$entityUser->entity_id));
+                $this->render('index_services',array("userRole"=>$userRole,'entityUser'=>$entityUser,"servicesEntity"=>$servicesEntity));
+            }
 	}
 
 	/**

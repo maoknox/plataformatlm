@@ -43,7 +43,10 @@
                             
                         </a>
                         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                            INGETRONIK
+                            <?php
+                                $entityUser= EntityUser::model()->findByAttributes(array("euser_id"=>Yii::app()->user->getId()));
+                                echo $entityUser->entity->entity_name;
+                            ?>
                         </a>
                     </div>
                     <div class="sidebar-wrapper">
@@ -54,7 +57,7 @@
                             <div class="user-info">
                                 <a data-toggle="collapse" href="#collapseExample" class="username">
                                     <span>
-                                        Tania Andrew
+                                        <?=$entityUser->euser->euser_name." ".$entityUser->euser->euser_lastname?>
                                         <b class="caret"></b>
                                     </span>
                                 </a>

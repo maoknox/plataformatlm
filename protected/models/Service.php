@@ -7,9 +7,12 @@
  * @property integer $service_id
  * @property string $service_name
  * @property string $service_label
+ * @property string $service_icon
  *
  * The followings are the available model relations:
  * @property ServiceEntity[] $serviceEntities
+ * @property Summary[] $summaries
+ * @property Menu[] $menus
  */
 class Service extends CActiveRecord
 {
@@ -31,9 +34,10 @@ class Service extends CActiveRecord
 		return array(
 			array('service_name, service_label', 'required'),
 			array('service_name, service_label', 'length', 'max'=>50),
+			array('service_icon', 'length', 'max'=>30),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('service_id, service_name, service_label', 'safe', 'on'=>'search'),
+			array('service_id, service_name, service_label, service_icon', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +50,8 @@ class Service extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'serviceEntities' => array(self::HAS_MANY, 'ServiceEntity', 'service_id'),
+			'summaries' => array(self::HAS_MANY, 'Summary', 'service_id'),
+			'menus' => array(self::HAS_MANY, 'Menu', 'service_id'),
 		);
 	}
 
@@ -58,6 +64,7 @@ class Service extends CActiveRecord
 			'service_id' => 'Service',
 			'service_name' => 'Service Name',
 			'service_label' => 'Service Label',
+			'service_icon' => 'Service Icon',
 		);
 	}
 
@@ -82,6 +89,7 @@ class Service extends CActiveRecord
 		$criteria->compare('service_id',$this->service_id);
 		$criteria->compare('service_name',$this->service_name,true);
 		$criteria->compare('service_label',$this->service_label,true);
+		$criteria->compare('service_icon',$this->service_icon,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

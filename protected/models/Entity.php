@@ -13,15 +13,16 @@
  * @property string $entity_address
  * @property string $entity_phone
  * @property string $entity_celphone
+ * @property string $entity_web
  *
  * The followings are the available model relations:
  * @property Euser[] $eusers
  * @property EntitySuscriptor[] $entitySuscriptors
  * @property EntitySuscriptor[] $entitySuscriptors1
+ * @property ServiceEntity[] $serviceEntities
  * @property City $city
  * @property TypeDocument $typeDocument
  * @property TypeEntity $typeEntity
- * @property ServiceEntity[] $serviceEntities
  */
 class Entity extends CActiveRecord
 {
@@ -45,9 +46,10 @@ class Entity extends CActiveRecord
 			array('city_id, type_document_id, type_entity_id', 'numerical', 'integerOnly'=>true),
 			array('entity_number_id, entity_phone, entity_celphone', 'length', 'max'=>50),
 			array('entity_name, entity_address', 'length', 'max'=>100),
+			array('entity_web', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('entity_id, city_id, type_document_id, type_entity_id, entity_number_id, entity_name, entity_address, entity_phone, entity_celphone', 'safe', 'on'=>'search'),
+			array('entity_id, city_id, type_document_id, type_entity_id, entity_number_id, entity_name, entity_address, entity_phone, entity_celphone, entity_web', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,10 +64,10 @@ class Entity extends CActiveRecord
 			'eusers' => array(self::MANY_MANY, 'Euser', 'entity_user(entity_id, euser_id)'),
 			'entitySuscriptors' => array(self::HAS_MANY, 'EntitySuscriptor', 'entity_id'),
 			'entitySuscriptors1' => array(self::HAS_MANY, 'EntitySuscriptor', 'suscriptor_id'),
+			'serviceEntities' => array(self::HAS_MANY, 'ServiceEntity', 'entity_id'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 			'typeDocument' => array(self::BELONGS_TO, 'TypeDocument', 'type_document_id'),
 			'typeEntity' => array(self::BELONGS_TO, 'TypeEntity', 'type_entity_id'),
-			'serviceEntities' => array(self::HAS_MANY, 'ServiceEntity', 'entity_id'),
 		);
 	}
 
@@ -84,6 +86,7 @@ class Entity extends CActiveRecord
 			'entity_address' => 'Entity Address',
 			'entity_phone' => 'Entity Phone',
 			'entity_celphone' => 'Entity Celphone',
+			'entity_web' => 'Entity Web',
 		);
 	}
 
@@ -114,6 +117,7 @@ class Entity extends CActiveRecord
 		$criteria->compare('entity_address',$this->entity_address,true);
 		$criteria->compare('entity_phone',$this->entity_phone,true);
 		$criteria->compare('entity_celphone',$this->entity_celphone,true);
+		$criteria->compare('entity_web',$this->entity_web,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
