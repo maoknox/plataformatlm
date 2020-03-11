@@ -4,7 +4,11 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 <!--Render partial a información general-->
-
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+  </ol>
+</nav>
 
 
 <?php 
@@ -30,12 +34,12 @@ if($servicesEntity):?>
                     <!--Mostrar contenido de un servicio-->
                     <div class="tab-pane active" id="<?php $serviceEntity->service->service_name?>">
                             <div class="row">    
-                                <?php $this->renderPartial("principal_info",array("userRole"=>$userRole,"entityUser"=>$entityUser,"serviceEntity"=>$serviceEntity));?>                         
+                                <?php $this->renderPartial("_pinfo_".$serviceEntity->service->service_name,array("userRole"=>$userRole,"entityUser"=>$entityUser,"serviceEntity"=>$serviceEntity));?>                         
                             </div>
 
                             <!--Render partial a Menú de servicio-->
                             <div class="row">
-                                <?php $this->renderPartial("principal_menu",array("userRole"=>$userRole,"entityUser"=>$entityUser,"serviceEntity"=>$serviceEntity));?>
+                                <?php $this->renderPartial("_pmenu_".$serviceEntity->service->service_name,array("userRole"=>$userRole,"entityUser"=>$entityUser,"serviceEntity"=>$serviceEntity));?>
                             </div>
                     </div>
                     <?php endforeach;?>

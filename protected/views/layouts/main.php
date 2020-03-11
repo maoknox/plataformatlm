@@ -22,6 +22,8 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <!--Confirm css-->
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/jquery-confirm.min.css" />
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
@@ -203,12 +205,14 @@
             <!--   Core JS Files   -->
             <?php
             Yii::app()->clientScript->registerCoreScript('jquery.ui');
-            ?>
+            ?>            
+            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/jquery-confirm.min.js"></script>
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/core/popper.min.js"></script>
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/core/bootstrap-material-design.min.js"></script>
             <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/material-dashboard.js?v=2.1.0" type="text/javascript"></script>
-
+            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/material-dashboard.js?v=2.1.0" type="text/javascript"></script>               
+            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/bootstrap-notify.js"></script>
+            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/Telemed.js"></script>
         </body>
     <?php else: ?>
         <?php echo $content; ?>

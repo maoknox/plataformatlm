@@ -93,4 +93,10 @@ class EntityUser extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+        
+        public static function getEntity(){
+            $userId=Yii::app()->user->getId();
+            $entityUser= EntityUser::model()->findByAttributes(array("euser_id"=>$userId));
+            return $entityUser->entity_id;
+        }
 }

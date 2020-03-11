@@ -1,28 +1,20 @@
 <?php
 
 /**
- * This is the model class for table "service_entity".
+ * This is the model class for table "magnitude_object".
  *
- * The followings are the available columns in table 'service_entity':
- * @property integer $service_entity_id
- * @property integer $service_id
- * @property integer $entity_id
- *
- * The followings are the available model relations:
- * @property Indicator[] $indicators
- * @property Object[] $objects
- * @property Entity $entity
- * @property Service $service
- * @property GroupSet[] $groupSets
+ * The followings are the available columns in table 'magnitude_object':
+ * @property integer $magnitude_id
+ * @property integer $object_id
  */
-class ServiceEntity extends CActiveRecord
+class MagnitudeObject extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'service_entity';
+		return 'magnitude_object';
 	}
 
 	/**
@@ -33,10 +25,11 @@ class ServiceEntity extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('service_id, entity_id', 'numerical', 'integerOnly'=>true),
+			array('magnitude_id, object_id', 'required'),
+			array('magnitude_id, object_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('service_entity_id, service_id, entity_id', 'safe', 'on'=>'search'),
+			array('magnitude_id, object_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,11 +41,6 @@ class ServiceEntity extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'indicators' => array(self::MANY_MANY, 'Indicator', 'indicator_service_entity(service_company_id, indicador_id)'),
-			'objects' => array(self::HAS_MANY, 'Object', 'service_entity_id'),
-			'entity' => array(self::BELONGS_TO, 'Entity', 'entity_id'),
-			'service' => array(self::BELONGS_TO, 'Service', 'service_id'),
-			'groupSets' => array(self::HAS_MANY, 'GroupSet', 'service_entity_id'),
 		);
 	}
 
@@ -62,9 +50,8 @@ class ServiceEntity extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'service_entity_id' => 'Service Entity',
-			'service_id' => 'Service',
-			'entity_id' => 'Entity',
+			'magnitude_id' => 'Magnitude',
+			'object_id' => 'Object',
 		);
 	}
 
@@ -86,9 +73,8 @@ class ServiceEntity extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('service_entity_id',$this->service_entity_id);
-		$criteria->compare('service_id',$this->service_id);
-		$criteria->compare('entity_id',$this->entity_id);
+		$criteria->compare('magnitude_id',$this->magnitude_id);
+		$criteria->compare('object_id',$this->object_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -99,17 +85,10 @@ class ServiceEntity extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return ServiceEntity the static model class
+	 * @return MagnitudeObject the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
-        
-        public static function getServiceEntityGH(){
-            $modelService= Service::model()->findByAttributes(array("service_name"=>'gestion_hidrica'));
-            $idEntity= EntityUser::getEntity();
-            $modelServiceEntity= ServiceEntity::model()->findByAttributes(array("entity_id"=>$idEntity,"service_id"=>$modelService->service_id));
-            return $modelServiceEntity;
-        }
 }

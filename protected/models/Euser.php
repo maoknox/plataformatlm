@@ -115,11 +115,15 @@ class Euser extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-        
+        /**
+	 * Returns the user's role.
+	 * @return Role
+	 */
         public static function getRole(){
             $userId=Yii::app()->user->getId();
             $userRole= UserRole::model()->findByAttributes(array("euser_id"=>$userId));
             $role= Role::model()->findByPk($userRole->role_id);
             return $role;
         }
+        
 }

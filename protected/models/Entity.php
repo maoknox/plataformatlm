@@ -134,4 +134,5 @@ class Entity extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+                
 }
