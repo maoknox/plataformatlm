@@ -34,7 +34,8 @@ var InfoMeter = function(){
         self.div=$("#showMeters");        
     }();
     
-    self.init=function(){        
+    self.init=function(){   
+        console.log(Telemed.getRootWebSitePath());
         setDefaults();
     }
      
