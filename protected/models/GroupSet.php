@@ -143,7 +143,7 @@ class GroupSet extends CActiveRecord
         return $resGroups;
     }
     
-    public function createObjectInGroup($node,$groupId,$createNode){    
+    public static function createObjectInGroup($node,$groupId,$createNode){    
         $resObjs=self::searchObjectInGroup($groupId);
         if(!empty($resObjs)){
             if($createNode){
@@ -155,7 +155,7 @@ class GroupSet extends CActiveRecord
         }
         return $node;
     }
-    public function searchObjectInGroup($parentGroup){
+    public static function searchObjectInGroup($parentGroup){
         $conn=Yii::app()->db;
         $searchGroup="select obj.object_number,obj.object_id from object obj left join group_object gobj on obj.object_id=gobj.object_id where gobj.group_id=:gId";
         $query=$conn->createCommand($searchGroup);
@@ -165,7 +165,7 @@ class GroupSet extends CActiveRecord
         $read->close();
         return $resGroups;
     }
-    public function changeParentsChild($ch,$parentId,$serviceEntityId){
+    public static function changeParentsChild($ch,$parentId,$serviceEntityId){
          //Averigua si tiene padre
         //Si no hace insert en tabla
         if($parentId==='#'){
@@ -187,7 +187,7 @@ class GroupSet extends CActiveRecord
         }
         return $msg;
     }
-    public function searchRootId($serviceEntityId){
+    public static function searchRootId($serviceEntityId){
         $conn= Yii::app()->db;
         $insObj="select group_id from group_set where group_id not in (select sub_group_id from sub_group) and service_entity_id=:seId;";
         $queryRootId=$conn->createCommand($insObj);
