@@ -46,6 +46,7 @@ else{
 $data[0]["data"][]=$ldataRead;
 $data[1]["data"][]=$ldataCons;
 $jsonData=json_encode($data);
+$collapse="";
 //$data[0]["data"][0]=;
 //Obtener lecturas ultimos 6 periodos
 //Obtener consumos de los últimos 6 periodos
@@ -84,15 +85,15 @@ echo $date->format('Y-m-d');
         <div>
             <?php if($anchorage):?>
                  <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" data-toggle="tooltip" data-placement="top" title="Anclar al inicio" type="button" onclick="Telemed.anchorAtStart('<?php echo $index?>','<?php echo $controllerName ?>','<?php echo $viewName?>','anchor_chart_1_<?php echo $index?>','<?php echo $serviceEntityId?>');"><i class="material-icons pmd-sm">attachment</i></button>   
-            <?php else:?>        
+            <?php else: $collapse="collapse";?>        
                 <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" data-toggle="tooltip" data-placement="top" title="Remover del inicio" type="button" onclick="Telemed.removeDiv('<?php echo $index ?>','anchor_chart_1_<?php echo $index?>');"><i class="material-icons pmd-sm">close</i></button>
                 <button class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-primary" data-toggle="collapse" data-target="#chartReadingConsum<?php echo $index; ?>">+ -</button>
-                    <?php endif;?>
+            <?php endif;?>
 
         </div>
     </div>
     <div class="card-body">   
-        <div id="chartReadingConsum<?php echo $index; ?>" class="collapse"></div>
+        <div id="chartReadingConsum<?php echo $index; ?>" class="<?= $collapse?>"></div>
         <input type="hidden" value="<?php echo $getMagnitude->magnitude_unity; ?>" id="magnitude">
     </div>
 </div>

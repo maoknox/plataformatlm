@@ -6,7 +6,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl.'/css/charts/chart
 Yii::app()->clientScript->registerScriptFile("https://code.highcharts.com/highcharts.js",CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/js/leaflet/leaflet.js", CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/js/leaflet/leaflet.markercluster.js", CClientScript::POS_END);
-Yii::app()->clientScript->registerScriptFile("http://maps.googleapis.com/maps/api/js?key=AIzaSyDT9BgFSTCCAxMtteEZAavsw3NPfgxdjRc&callback", CClientScript::POS_END);
+Yii::app()->clientScript->registerScriptFile("http://maps.googleapis.com/maps/api/js?key=".getenv("TELEMED_GOOGLEAPI")."&callback", CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile("https://asmaloney.com/wp-content/themes/asmaloney2/maps_cluster/markers.js", CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/js/Services/WaterManagment/ViewMeterData.js", CClientScript::POS_END);
 Yii::app()->clientScript->registerScriptFile("https://code.highcharts.com/highcharts.js",CClientScript::POS_HEAD);

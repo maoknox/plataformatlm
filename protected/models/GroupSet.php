@@ -132,7 +132,7 @@ class GroupSet extends CActiveRecord
 
         return $tree;
     }
-    public function searchNameChild($groupId){
+    public static function searchNameChild($groupId){
         $conn=Yii::app()->db;
         $searchGroup="select group_label, group_id from group_set where group_id=:groupId";
         $query=$conn->createCommand($searchGroup);

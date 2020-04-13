@@ -52,21 +52,14 @@ return array(
 		// 'db'=>array(
 		// 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		// ),
-		// uncomment the following to use a MySQL database
-                'db'=>array(
-			'connectionString' => 'pgsql:host=telemed.cw2b3egzsemr.us-west-2.rds.amazonaws.com;dbname=telemed',
+		// uncomment the following to use a MySQL database//              
+		'db'=>array(
+			'connectionString' => 'pgsql:host='.getenv("TELEMED_HOST").';dbname='.getenv("TELEMED_DB"),
 			// 'emulatePrepare' => true,
-			'username' => 'maoknox',
-			'password' => '7gpqtmAFB13Fg4i0',
+			'username' => getenv("TELEMED_UNAME"),
+			'password' => getenv("TELEMED_PSSWD"),
 			'charset' => 'utf8',
 		),
-//		'db'=>array(
-//			'connectionString' => 'pgsql:host='.getenv("TELEMED_HOST").';dbname='.getenv("TELEMED_DB"),
-//			// 'emulatePrepare' => true,
-//			'username' => getenv("TELEMED_UNAME"),
-//			'password' => getenv("TELEMED_PSSWD"),
-//			'charset' => 'utf8',
-//		),
 //		'db'=>array(
 //			'connectionString' => 'pgsql:host='.getenv("ELEPH_HOST").';port=5432;dbname='.getenv("ELEPH_DB"),
 //			// 'emulatePrepare' => true,
