@@ -182,15 +182,15 @@ var InfoMeter = function(){
             },
             "types" : {               
                 "root" : {
-                  "icon" : self.baseUrl+"/images/tree/nodes.svg?colour=005eb8",
+                  "icon" : Telemed.getRootWebSitePath()+"/images/tree/nodes.svg?colour=005eb8",
                   "valid_children" : ["default"]
                 },
                 "default" : {
-                    "icon" : self.baseUrl+"/images/tree/organisation-chart-vertical.svg?colour=005eb8",
+                    "icon" : Telemed.getRootWebSitePath()+"/images/tree/organisation-chart-vertical.svg?colour=005eb8",
                   "valid_children" : ["default","file"]
                 },
                 "file" : {
-                  "icon" : self.baseUrl+"/images/tree/gauge-meter.svg",
+                  "icon" : Telemed.getRootWebSitePath()+"/images/tree/gauge-meter.svg",
                   "valid_children" : []
                 }
               },
