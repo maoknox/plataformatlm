@@ -1,26 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "measurei".
+ * This is the model class for table "object_status".
  *
- * The followings are the available columns in table 'measurei':
- * @property integer $measure_id
- * @property integer $magnitude_id
- * @property integer $reading_id
- * @property string $measure_reading
+ * The followings are the available columns in table 'object_status':
+ * @property integer $object_status_id
+ * @property string $object_stasus_name
+ * @property string $object_status_label
  *
  * The followings are the available model relations:
- * @property Magnitude $magnitude
- * @property Reading $reading
+ * @property Object[] $objects
  */
-class Measure extends CActiveRecord
+class ObjectStatus extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'measure';
+		return 'object_status';
 	}
 
 	/**
@@ -31,11 +29,11 @@ class Measure extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('magnitude_id, reading_id', 'numerical', 'integerOnly'=>true),
-			array('measure_reading', 'safe'),
+			array('object_stasus_name, object_status_label', 'required'),
+			array('object_stasus_name, object_status_label', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('measure_id, magnitude_id, reading_id, measure_reading', 'safe', 'on'=>'search'),
+			array('object_status_id, object_stasus_name, object_status_label', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +45,7 @@ class Measure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'magnitude' => array(self::BELONGS_TO, 'Magnitude', 'magnitude_id'),
-			'reading' => array(self::BELONGS_TO, 'Reading', 'reading_id'),
+			'objects' => array(self::HAS_MANY, 'Object', 'object_status_id'),
 		);
 	}
 
@@ -58,10 +55,9 @@ class Measure extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'measure_id' => 'Measure',
-			'magnitude_id' => 'Magnitude',
-			'reading_id' => 'Reading',
-			'measure_reading' => 'Measure Reading',
+			'object_status_id' => 'Object Status',
+			'object_stasus_name' => 'Object Stasus Name',
+			'object_status_label' => 'Object Status Label',
 		);
 	}
 
@@ -83,10 +79,9 @@ class Measure extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('measure_id',$this->measure_id);
-		$criteria->compare('magnitude_id',$this->magnitude_id);
-		$criteria->compare('reading_id',$this->reading_id);
-		$criteria->compare('measure_reading',$this->measure_reading,true);
+		$criteria->compare('object_status_id',$this->object_status_id);
+		$criteria->compare('object_stasus_name',$this->object_stasus_name,true);
+		$criteria->compare('object_status_label',$this->object_status_label,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -97,7 +92,7 @@ class Measure extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Measure the static model class
+	 * @return ObjectStatus the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

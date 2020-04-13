@@ -28,8 +28,16 @@
                             <h3 class = "card-title"><?php echo $res["count"];?></h3>
                         </div>
                         <div class = "card-footer">
-                            <div class = "stats">                                
-                                <a href = "<?php echo $summary->summary_url;?>"><?php echo $summary->summary_url_name;?>...</a>
+                            <div class = "stats">
+<?php 
+echo CHtml::link($summary->summary_url_name, Yii::app()->baseUrl.$summary->summary_url, 
+                            array(
+                                'submit' =>  Yii::app()->baseUrl.$summary->summary_url,
+                                'params' => array("entit_service_id" =>$serviceEntity->service_id)
+                            )
+                        );
+?>
+                                
                             </div>
                         </div>
                     </div>

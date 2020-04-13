@@ -27,16 +27,6 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/Services/W
                   Medidores
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
-                  Settings
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
-                  Options
-                </a>
-              </li>
             </ul>
             <div class="tab-content tab-space">
               <div class="tab-pane active" id="medidores">
@@ -52,12 +42,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/Services/W
                                 'class'=>'btn btn-primary'
                             )
                         );
-                        ?>
-                        <a class="btn btn-primary" href="<?php echo Yii::app()->baseUrl?>/index.php/water/" role="button">Ver medidores</a>
-                      <button type="button" class="btn btn-primary" id="btn-bt2">Btn 2</button>
-                      <button type="button" class="btn btn-primary" id="btn-bt3">Btn 3</button>
-                      <button type="button" class="btn btn-primary" id="btn-bt4">Btn 4</button>
-                      <button type="button" class="btn btn-primary" id="btn-bt5">Btn 5</button>
+                        ?>               
                     </div>
                     
                     <!--Grid column-->
@@ -127,3 +112,33 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl."/js/Services/W
         </div>
     </div>
 <?php endif;?>
+<?php
+//    Yii::app()->clientScript->registerScriptFile("https://code.highcharts.com/highcharts.js",CClientScript::POS_END);
+//    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . "/js/Services/WaterManagment/ChartsWater.js", CClientScript::POS_END);
+?>
+<?php
+    $anchorageElements= Anchorage::model()->findAllByAttributes(array("service_entity_id"=>$serviceEntity->service_entity_id));
+?>
+<?php if($anchorageElements):?>
+<div class="container">
+    <div class="row">
+    <?php foreach($anchorageElements as $element):?>
+        <?php 
+            $serviceEntityId=ServiceEntity::getServiceEntityByName("gestion_hidrica")->service_entity_id;
+            $params= json_decode($element->anchorage_params,true);
+            $params["anchorage"]=false;
+            $params["serviceEntityId"]=$serviceEntityId;
+        ?>
+        <div class="col-sm-3 " id="sm-<?php echo $params["index"]?>">
+            <div class="card">           
+                    <?php
+                        
+                        $this->renderPartial("//".$element->anchorage_controller."/".$element->anchorage_view,$params)                 
+                    ?>
+            </div>
+        </div>     
+    <?php  endforeach;?>
+    </div>
+</div>
+<?php endif;?>
+

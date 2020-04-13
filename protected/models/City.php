@@ -1,26 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "measurei".
+ * This is the model class for table "city".
  *
- * The followings are the available columns in table 'measurei':
- * @property integer $measure_id
- * @property integer $magnitude_id
- * @property integer $reading_id
- * @property string $measure_reading
+ * The followings are the available columns in table 'city':
+ * @property integer $city_id
+ * @property integer $state_id
+ * @property string $city_name
+ * @property string $city_label
+ * @property string $city_code
  *
  * The followings are the available model relations:
- * @property Magnitude $magnitude
- * @property Reading $reading
+ * @property State $state
+ * @property Object[] $objects
+ * @property Entity[] $entities
  */
-class Measure extends CActiveRecord
+class City extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'measure';
+		return 'city';
 	}
 
 	/**
@@ -31,11 +33,12 @@ class Measure extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('magnitude_id, reading_id', 'numerical', 'integerOnly'=>true),
-			array('measure_reading', 'safe'),
+			array('city_name', 'required'),
+			array('state_id', 'numerical', 'integerOnly'=>true),
+			array('city_name, city_label, city_code', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('measure_id, magnitude_id, reading_id, measure_reading', 'safe', 'on'=>'search'),
+			array('city_id, state_id, city_name, city_label, city_code', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +50,9 @@ class Measure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'magnitude' => array(self::BELONGS_TO, 'Magnitude', 'magnitude_id'),
-			'reading' => array(self::BELONGS_TO, 'Reading', 'reading_id'),
+			'state' => array(self::BELONGS_TO, 'State', 'state_id'),
+			'objects' => array(self::HAS_MANY, 'Object', 'city_id'),
+			'entities' => array(self::HAS_MANY, 'Entity', 'city_id'),
 		);
 	}
 
@@ -58,10 +62,11 @@ class Measure extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'measure_id' => 'Measure',
-			'magnitude_id' => 'Magnitude',
-			'reading_id' => 'Reading',
-			'measure_reading' => 'Measure Reading',
+			'city_id' => 'City',
+			'state_id' => 'State',
+			'city_name' => 'City Name',
+			'city_label' => 'City Label',
+			'city_code' => 'City Code',
 		);
 	}
 
@@ -83,10 +88,11 @@ class Measure extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('measure_id',$this->measure_id);
-		$criteria->compare('magnitude_id',$this->magnitude_id);
-		$criteria->compare('reading_id',$this->reading_id);
-		$criteria->compare('measure_reading',$this->measure_reading,true);
+		$criteria->compare('city_id',$this->city_id);
+		$criteria->compare('state_id',$this->state_id);
+		$criteria->compare('city_name',$this->city_name,true);
+		$criteria->compare('city_label',$this->city_label,true);
+		$criteria->compare('city_code',$this->city_code,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -97,7 +103,7 @@ class Measure extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Measure the static model class
+	 * @return City the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

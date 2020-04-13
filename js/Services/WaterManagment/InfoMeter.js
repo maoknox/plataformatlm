@@ -26,6 +26,7 @@ var InfoMeter = function(){
     };
     var self=this;
     self.dataTable="";
+    self.baseUrl=Telemed.getRootWebSitePath();
     /**
      * Constructor Method 
      */
@@ -33,7 +34,7 @@ var InfoMeter = function(){
         self.div=$("#showMeters");        
     }();
     
-    self.init=function(){
+    self.init=function(){        
         setDefaults();
     }
      
@@ -67,22 +68,52 @@ var InfoMeter = function(){
 //                }
 //            }
 //    } );
+    $('#datatables thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" placeholder="Buscar '+title+'" class="column_search" name="'+title+'">' );
         
+        $( 'input', this ).on( 'keyup', function () {
+            if ( self.dataTable.column(i).search() !== this.value ) {   
+//                console.log(this.value);
+                if(this.name==='Fecha última lectura'){
+                    if(moment(this.value,'YYYY-MM-DD HH:mm:ss',true).isValid()){
+                        self.dataTable
+                        .column(i)
+                        .search( this.value )
+                        .draw();
+                    }
+                }
+                else{
+                    self.dataTable
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+                }
+            }
+        } );
+    } );
+
         self.dataTable=$("#datatables").DataTable({
-            "processing": false,
-            "serverSide": false,
-            dom: 'lBfrtip',            
+            "processing": true,
+            "serverSide": true,
+            "searching": true,
+            dom: 'lBfrtip',
+            orderCellsTop: true,
             buttons: [
                'copyHtml5',
                'excelHtml5',
                'csvHtml5',
-               'pdfHtml5'
            ],
            lengthMenu: [
-                [25, 50, 100, 200, -1],
-                [25, 50, 100, 200, "All"]
+                [10,25, 50, 100, 200, -1],
+                [10,25, 50, 100, 200, "All"]
             ],
-            responsive: true,
+            "language": {
+                "decimal": ",",
+                "thousands": "."
+            },
+//            responsive: true,
+            pagingType: "full_numbers",
             fixedHeader: {
                 header: true,
                 footer: true
@@ -99,6 +130,20 @@ var InfoMeter = function(){
             oLanguage: Telemed.getDatatableLang(),
             scrollX: true
         });
+        $("#datatables_filter").hide();
+        $('#selcol').change(function (e) {
+            console.log("asd");
+            e.preventDefault();
+            self.dataTable.columns().visible( true );
+            // Get the column API object
+            console.log($(this).val());
+            // Toggle the visibility
+            $.each($(this).val(), function( index, value ) {
+                self.dataTable.column(value).visible(false);
+            });
+        } );
+
+        
     };    
     /**************************************************************************/
     /********************************** METHODS *******************************/
@@ -137,15 +182,15 @@ var InfoMeter = function(){
             },
             "types" : {               
                 "root" : {
-                  "icon" : "https://digital.nhs.uk/svg-magic/binaries/content/gallery/website/icons/tech/nodes.svg?colour=005eb8",
+                  "icon" : self.baseUrl+"/images/tree/nodes.svg?colour=005eb8",
                   "valid_children" : ["default"]
                 },
                 "default" : {
-                    "icon" : "https://digital.nhs.uk/svg-magic/binaries/content/gallery/website/icons/process/organisation-chart-vertical.svg?colour=005eb8",
+                    "icon" : self.baseUrl+"/images/tree/organisation-chart-vertical.svg?colour=005eb8",
                   "valid_children" : ["default","file"]
                 },
                 "file" : {
-                  "icon" : "https://www.svgrepo.com/show/219809/gauge-meter.svg",
+                  "icon" : self.baseUrl+"/images/tree/gauge-meter.svg",
                   "valid_children" : []
                 }
               },
@@ -156,13 +201,13 @@ var InfoMeter = function(){
             "contextmenu": {
                 "items": function ($node) {
                     var tree = $("#treemeters").jstree(true);
-                    return {
-                        "create": {
-                            "separator_before": false,
-                            "separator_after": false,
-                            "label": "Crear grupo",
-                            "action": function (obj) {
-//                                
+                    if($node.type!="file"){
+                        return {
+                            "create": {
+                                "separator_before": false,
+                                "separator_after": false,
+                                "label": "Crear grupo",
+                                "action": function (obj) {
                                     $node = tree.create_node($node, {
                                        text: 'Nuevo grupo',
                                        type: 'default'
@@ -172,36 +217,50 @@ var InfoMeter = function(){
                                         tree.select_node($node);
                                         tree.edit($node);
                                     }
-//                                
+                                }
+                            },
+                            "rename": {
+                                "label": "Renombrar grupo",
+                                "action": function (obj) {                           
+                                    tree.edit($node);
+                                }
                             }
-                        },
-                        "rename": {
-                            "label": "Renombrar grupo",
-                            "action": function (obj) {                           
-                                tree.edit($node);
-                            }
-                        }
-                    };
+                        };
+                    }
+                    else{
+                        return false;
+                    }
                 }
             }
         }).on("move_node.jstree", function(e, data) {
             self.changeOrderNode(data);
         }).on('create_node.jstree', function (e, data) {
             self.createGroup(data.parent,data);
-                //$.get('?operation=create_node', { 'type' : data.node.type, 'id' : data.node.parent, 'text' : data.node.text })
-//                        data.node.id=15;
-
         }).on('activate_node.jstree', function (e, data) {
             if(data.node && data.node.type==='file'){                
-                console.log("Click node: " + data.node.text +" "+data.node.id);
+//                console.log("Click node: " + data.node.text +" "+data.node.id+" "+self.baseUrl);
+                $('<form action="viewMeterData" method="POST"><input type="hidden" name="meterId" value="'+data.node.id+'" /><input type="hidden" name="meterNumber" value="'+data.node.text+'" /></form>').appendTo('body').submit();
             }
         }).on('rename_node.jstree', function (e, data) {
             self.renameGroup(data.node.text,data.node.id);
-        }).on('search.jstree', function (nodes, str, res) {
-            if (str.nodes.length===0) {
-                $('#treemeters').jstree(true).hide_all();
-            }
-        });
+        })
+//                .on('search.jstree', function (nodes, str, res) {
+//            if (str.nodes.length===0) {
+//                $('#treemeters').jstree(true).hide_all();
+//            }
+//        });
+//        $('#deliverable_search').keyup(function(){
+//                        $('#treemeters').jstree(true).show_all();
+//                        $('#treemeters').jstree('search', $(this).val());
+//                    });
+                    var to = false;
+                  $('#deliverable_search').keyup(function () {
+                    if(to) { clearTimeout(to); }
+                    to = setTimeout(function () {
+                      var v = $('#deliverable_search').val();
+                       self.div.find('#treemeters').jstree(true).search(v);
+                    }, 250);
+                  });
     }
     /**************************************************************************/
     /******************************* SYNC METHODS *****************************/
@@ -252,10 +311,10 @@ var InfoMeter = function(){
                 if(response.status==='success'){
 //                    md.showNotification('top','right');
                     self.loadTree(response.tree);
-                    $('#deliverable_search').keyup(function(){
-                        $('#treemeters').jstree(true).show_all();
-                        $('#treemeters').jstree('search', $(this).val());
-                    });
+//                    $('#deliverable_search').keyup(function(){
+//                        $('#treemeters').jstree(true).show_all();
+//                        $('#treemeters').jstree('search', $(this).val());
+//                    });
                 }
                 else{
                    

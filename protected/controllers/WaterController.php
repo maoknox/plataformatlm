@@ -79,49 +79,149 @@ class WaterController extends Controller{
     public function actionSearchInfoDTables(){
         $conn=Yii::app()->db;
         $modelServiceEnity= ServiceEntity::getServiceEntityGH();       
+        $params=$_REQUEST;
+        $columns=array(
+            0=>array("column_name"=>"object_number","type"=>"string"),
+            1=>array("column_name"=>"suscriptor_name","type"=>"string"),
+            2=>array("column_name"=>"magnitude_key","type"=>"string"),
+            3=>array("column_name"=>"measure_reading","type"=>"float"),
+            4=>array("column_name"=>"measure_date","type"=>"date"),
+            5=>array("column_name"=>"sum_consumption","type"=>"float"),
+            
+        );
+        $where="";
+        $where .=" AND (";
+        $count=0;
+        $condition="";
+        foreach($columns as $pk=>$column){
+            if(!empty($params['columns'][$pk]["search"]['value'])){
+                if($column["type"]=="float"){
+                    preg_match('/[^\d]+/', pg_escape_string($params['columns'][$pk]['search']['value']), $textMatch);
+                    preg_match('/\d+/', pg_escape_string($params['columns'][$pk]['search']['value']), $numMatch);                    
+                    if(!$textMatch){
+                        $textMatch=" =";
+                    }elseif(is_array($textMatch)){
+                        if(!in_array(str_replace(" ", "", $textMatch[0]),array("<",">",">=","<=","="))){
+                            $textMatch="=";
+                        }
+                        else{
+                            $textMatch= str_replace(" ", "", $textMatch[0]);
+                        }
+                    }                    
+                    if(!$numMatch){
+                        $numMatch=0;
+                    }
+                    else{
+                        $numMatch=$numMatch[0];
+                    }
+                    $condition=$column["column_name"]." ".$textMatch." ".$numMatch;
+                    
+                }elseif($column["type"]=="date"){
+                    preg_match('/\\d{4}\\-\\d{2}\\-\\d{2}\\ \\d{2}\\:\\d{2}\\:\\d{2}/',$params['columns'][$pk]['search']['value'],$date);
+                    if($date){
+                        $compArr=explode($date[0], $params['columns'][$pk]['search']['value']);
+                        if(!in_array(str_replace(" ", "", $compArr[0]),array("<",">",">=","<=","="))){
+                            $comp="=";
+                        }
+                        else{
+                            $comp= str_replace(" ", "", $compArr[0]);
+                        }
+                        $d =DateTime::createFromFormat("Y-m-d H:i:s", $date[0]);                        
+                        if($d && $d->format("Y-m-d H:i:s")==$date[0]){
+                            $condition="ms.".$column["column_name"]."  ".$comp." '".$date[0]."'";
+                        }
+                    }
+                }
+                elseif($column["type"]=="string"){
+                    $condition=$column["column_name"]." ILIKE '%".pg_escape_string($params['columns'][$pk]['search']['value'])."%'";                    
+                }
+                if($count==0){
+                    $where .=" ".$condition." ";
+                }
+                else{
+                    $where .=" OR ".$condition." ";
+                }
+                $count++;
+            }
+        }
+        $where .=")";
+        if(empty($condition)){
+            $where="";
+        }  
         $serviceEntity=$modelServiceEnity->service_entity_id;
-        $sqlSearchObjects="select * from object obj 
-        left join object_suscriptor objs on objs.object_id=obj.object_id 
-        left join entity_suscriptor es on es.company_suscriptor_id=objs.company_suscriptor_id
-        left join entity et on et.entity_id=es.suscriptor_id 
-        left join measure ms on ms.object_id=obj.object_id
-        where obj.service_entity_id=:seId order by measure_date desc limit 1;";
-         $querySobj=$conn->createCommand($sqlSearchObjects);
+        $date=New DateTime(date("Y-m-d H:i:s"));
+        $date->sub(new DateInterval('P2M'));
+        $firstDay=$date->modify("first day of this month")->format("Y-m-d 00:00:00");
+        $now=New DateTime();
+        $lastDay=date("Y-m-d H:i:s");
+        $sqlSearchObjects="  select COUNT(*) OVER() as count,obj.object_id,obj.object_number,et.suscriptor_name,mn.magnitude_key,ms.measure_reading,rd.reading_date,wd.sum_consumption
+            from object obj
+            left join object_suscriptor objs on objs.object_id=obj.object_id 
+            left join entity_suscriptor es on es.entity_suscriptor_id=objs.entity_suscriptor_id
+            left join suscriptor et on et.suscriptor_id=es.suscriptor_id
+            left join (select object_id,max(reading_id) reading_id,max(reading_date) reading_date from reading group by object_id) rd on rd.object_id=obj.object_id
+            left join measure ms on ms.reading_id=rd.reading_id 
+            left join reading rdii on rdii.reading_id=(select reading_id from reading where reading_date<rd.reading_date and object_id=rd.object_id order by reading_date desc limit 1)
+            left join magnitude mn on mn.magnitude_id=ms.magnitude_id
+            left join water_data wd on wd.reading_id=rdii.reading_id
+            where obj.service_entity_id=:seId and rd.reading_id is not null ";
+        $sqlSearchObjects.=$where;
+        
+            $sqlSearchObjects .=  " ORDER BY ".$columns[$params['order'][0]['column']]["column_name"]."   ".$params['order'][0]['dir']."  OFFSET ".$params['start']." LIMIT ".$params['length']." "; 
+                         
+        $querySobj=$conn->createCommand($sqlSearchObjects);
         $querySobj->bindParam(":seId",$serviceEntity);
         $readSObj=$querySobj->query();
         $resSObj=$readSObj->readAll();
         $readSObj->close();
+        //total
+         $sqlTot="select count(*) cn
+            from object obj
+            left join object_suscriptor objs on objs.object_id=obj.object_id 
+            left join entity_suscriptor es on es.entity_suscriptor_id=objs.entity_suscriptor_id
+            left join suscriptor et on et.suscriptor_id=es.suscriptor_id
+            left join (select object_id,max(reading_id) reading_id,max(reading_date) reading_date from reading group by object_id) rd on rd.object_id=obj.object_id
+            left join measure ms on ms.reading_id=rd.reading_id 
+            left join reading rdii on rdii.reading_id=(select reading_id from reading where reading_date<rd.reading_date and object_id=rd.object_id limit 1)
+            left join magnitude mn on mn.magnitude_id=ms.magnitude_id
+            left join water_data wd on wd.reading_id=rdii.reading_id
+            where obj.service_entity_id=:seId and rd.reading_id is not null ";
+         $queryTot=$conn->createCommand($sqlTot);
+        $queryTot->bindParam(":seId",$serviceEntity);
+        $readTot=$queryTot->query();       
+        $resTot=$readTot->read();
+        $readTot->close();
+        //
+        $rs=0;
         $dataRes=array();
         if(!empty($resSObj)){
             foreach($resSObj as $pk=>$res){
                 $unity="";
                 $dataAux=array();
-                $dataAux[]=$res["object_number"];
-                $dataAux[]=$res["entity_number_id"];
-                $measDatas= json_decode($res["measure_data"],true);
-                $modelMagnitude= Magnitude::model()->findByAttributes(array("magnitude_key"=>$measDatas[0]["magnitude_key"]));
-                if($modelMagnitude){
-                    $unity=$modelMagnitude->magnitude_unity;
-                }
-                $dataAux[]=$measDatas[0]["measure"]." ".$unity;
-                $dataAux[]=$res["measure_date"];
-                $date=New DateTime($res["measure_date"]);
-                $date->sub(new DateInterval('P1M'));
-                $firstDay=$date->modify("first day of this month")->format("Y-m-d 00:00:00");
-                $lastDay=$date->modify("last day of this month")->format("Y-m-d 23:59:59");
-                $consLastMonth= Measure::searchLastRead($firstDay,$lastDay,$res["object_id"]);
-                $consumption=0;
-                if(!empty($consLastMonth)){
-                    $oldLecture= json_decode($consLastMonth["oldlecture"],true);
-                    $newLecture= json_decode($consLastMonth["newlecture"],true);
-                    $consumption=(float)$newLecture[0]["measure"]-(float)$oldLecture[0]["measure"];
-                }
-                $dataAux[]=$consumption." ".$unity;
+                $dataAux[]=CHtml::link($res["object_number"], 
+                    array(
+                        'viewMeterData',
+                        'meterId'=>$res["object_id"],'meterNumber'=>$res["object_number"]
+                    )
+                );               
+                $dataAux[]=$res["suscriptor_name"];
+                $dataAux[]=$res["magnitude_key"];
+                $dataAux[]=$res["measure_reading"];
+                $dataAux[]=$res["reading_date"];
+                $dataAux[]=$res["sum_consumption"];
                 $dataRes[]=$dataAux;
+                $rs=$res["count"];
             }
         } 
+        $json_data = array(
+                "draw"            => intval( $params['draw'] ),   
+                "recordsTotal"    => intval($resTot["cn"] ),  
+                "recordsFiltered" => intval($rs),
+                "data"            => $dataRes,
+//                "columns"=>$columnsi// total data array
+            );
         $lectura["data"]=$dataRes;
-        echo CJSON::encode($lectura);
+        echo CJSON::encode($json_data);
     }
     public function actionChangeNode(){
         $childrenId= Yii::app()->request->getPost("children_id");
@@ -183,5 +283,30 @@ class WaterController extends Controller{
             $result["status"]="error";
         }
         echo json_encode($result);
+    }
+    
+    public function actionViewMeterData(){
+//        print_r($_GET);exit();
+        $meterId=Yii::app()->request->getParam('meterId');
+        $modelObject= Object::model()->findByPk($meterId);
+        $modelObjectSuscriptor= ObjectSuscriptor::model()->findByAttributes(array("object_id"=>$meterId));
+        $modelEntitySuscriptor=false;
+        $modelSuscriptor=false;
+        if($modelObjectSuscriptor){
+            $modelEntitySuscriptor= EntitySuscriptor::model()->findByPk($modelObjectSuscriptor->entity_suscriptor_id);
+            $modelSuscriptor= Suscriptor::model()->findByPk($modelEntitySuscriptor->suscriptor_id);        
+        }
+        $modelReading= Reading::model()->findBySql("select reading_id from reading where object_id=:objectId order by reading_id desc limit 1",array(":objectId"=>$modelObject->object_id));
+        $modelMeasure= Measure::model()->findByAttributes(array("reading_id"=>$modelReading->reading_id));
+        $this->render('view_meter_data',
+            array(
+                "modelObject"=>$modelObject,
+                "modelObjectSuscriptor"=>$modelObjectSuscriptor,
+                "modelEntitySuscriptor"=>$modelEntitySuscriptor,
+                "modelSuscriptor"=>$modelSuscriptor,
+                "modelReading"=>$modelReading,
+                "modelMeasure"=>$modelMeasure,
+            )
+        );
     }
 }

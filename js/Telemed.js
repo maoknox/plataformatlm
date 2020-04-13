@@ -55,9 +55,63 @@ var Telemed = function(){
     searchState=function(idCountry){
       console.log("consulta departamento");  
     };
+     self.removeDiv=function(index,anchorName){
+        var msg="";
+        var typeMsg;
+        $.ajax({
+            type: "POST",
+            dataType:'json',
+            url: self.getRootWebSitePath()+'/index.php/site/removeAnchorage',
+            data:{anchorName:anchorName},   
+            beforeSend:function(){
+                $.LoadingOverlay("show");
+            }
+        }).done(function(response) {
+           self.notifyMsg(response.msg,response.status);
+           if(response.status=='success'){
+               $( "#sm-"+index ).remove();
+           }
+        }).fail(function(error, textStatus, xhr) {
+            msg="Error al ejecutar la petición";
+            typeMsg="danger";
+            self.notifyMsg(msg,typeMsg);
+        }).always(function(){
+            $.LoadingOverlay("hide");
+        });
+    }
+    self.anchorAtStart=function(index,controllerName,viewName,nameAnchor,serviceEntityId){
+        console.log(index+" "+controllerName+" "+viewName+" "+nameAnchor);
+        var msg="";
+        var typeMsg;
+        $.ajax({
+            type: "POST",
+            dataType:'json',
+            url: self.getRootWebSitePath()+'/index.php/site/anchorageAtStart',
+            data:{controllerName:controllerName,viewName:viewName,nameAnchor:nameAnchor,serviceEntityId:serviceEntityId,params:{"index":index}},   
+            beforeSend:function(){
+                $.LoadingOverlay("show");
+            }
+        }).done(function(response) {
+           console.log(JSON.stringify(response));
+           self.notifyMsg(response.msg,response.status);
+        }).fail(function(error, textStatus, xhr) {
+            msg="Error al ejecutar la petición";
+            typeMsg="danger";
+            self.notifyMsg(msg,typeMsg);
+        }).always(function(){
+            $.LoadingOverlay("hide");
+        });
+    }
     /**************************************************************************/
     /******************************* DOM METHODS ******************************/
     /**************************************************************************/
+    
+    
+        self.getBaseUrl=function(){
+            var re = new RegExp(/^.*\//);
+            var baseUrl=re.exec(window.location.href);
+            return baseUrl;
+        }
         /**
          * Retorna la configuración del lenguaje para el plugin datatable
          * @returns {object} Objeto con la configuración de idioma para datatable
@@ -114,6 +168,14 @@ var Telemed = function(){
                 align: "right"
               }
             });
+        };
+        self.getRootWebSitePath=function(){
+            var _location = document.location.toString();
+            var applicationNameIndex = _location.indexOf('/', _location.indexOf('://') + 3);
+            var applicationName = _location.substring(0, applicationNameIndex) + '/';
+            var webFolderIndex = _location.indexOf('/', _location.indexOf(applicationName) + applicationName.length);
+            var webFolderFullPath = _location.substring(0, webFolderIndex);
+            return webFolderFullPath;
         };
 //        window.confirm = function(title,msg) {
 //                $.confirm({

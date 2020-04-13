@@ -1,26 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "measurei".
+ * This is the model class for table "anchorage".
  *
- * The followings are the available columns in table 'measurei':
- * @property integer $measure_id
- * @property integer $magnitude_id
- * @property integer $reading_id
- * @property string $measure_reading
+ * The followings are the available columns in table 'anchorage':
+ * @property integer $anchorage_id
+ * @property integer $service_entity_id
+ * @property string $anchorage_controller
+ * @property string $anchorage_view
+ * @property string $anchorage_params
+ * @property string $anchorage_name
  *
  * The followings are the available model relations:
- * @property Magnitude $magnitude
- * @property Reading $reading
+ * @property ServiceEntity $serviceEntity
  */
-class Measure extends CActiveRecord
+class Anchorage extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'measure';
+		return 'anchorage';
 	}
 
 	/**
@@ -31,11 +32,12 @@ class Measure extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('magnitude_id, reading_id', 'numerical', 'integerOnly'=>true),
-			array('measure_reading', 'safe'),
+			array('service_entity_id', 'numerical', 'integerOnly'=>true),
+			array('anchorage_controller, anchorage_view, anchorage_name', 'length', 'max'=>50),
+			array('anchorage_params', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('measure_id, magnitude_id, reading_id, measure_reading', 'safe', 'on'=>'search'),
+			array('anchorage_id, service_entity_id, anchorage_controller, anchorage_view, anchorage_params, anchorage_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +49,7 @@ class Measure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'magnitude' => array(self::BELONGS_TO, 'Magnitude', 'magnitude_id'),
-			'reading' => array(self::BELONGS_TO, 'Reading', 'reading_id'),
+			'serviceEntity' => array(self::BELONGS_TO, 'ServiceEntity', 'service_entity_id'),
 		);
 	}
 
@@ -58,10 +59,12 @@ class Measure extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'measure_id' => 'Measure',
-			'magnitude_id' => 'Magnitude',
-			'reading_id' => 'Reading',
-			'measure_reading' => 'Measure Reading',
+			'anchorage_id' => 'Anchorage',
+			'service_entity_id' => 'Service Entity',
+			'anchorage_controller' => 'Anchorage Controller',
+			'anchorage_view' => 'Anchorage View',
+			'anchorage_params' => 'Anchorage Params',
+			'anchorage_name' => 'Anchorage Name',
 		);
 	}
 
@@ -83,10 +86,12 @@ class Measure extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('measure_id',$this->measure_id);
-		$criteria->compare('magnitude_id',$this->magnitude_id);
-		$criteria->compare('reading_id',$this->reading_id);
-		$criteria->compare('measure_reading',$this->measure_reading,true);
+		$criteria->compare('anchorage_id',$this->anchorage_id);
+		$criteria->compare('service_entity_id',$this->service_entity_id);
+		$criteria->compare('anchorage_controller',$this->anchorage_controller,true);
+		$criteria->compare('anchorage_view',$this->anchorage_view,true);
+		$criteria->compare('anchorage_params',$this->anchorage_params,true);
+		$criteria->compare('anchorage_name',$this->anchorage_name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -97,7 +102,7 @@ class Measure extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Measure the static model class
+	 * @return Anchorage the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

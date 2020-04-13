@@ -54,50 +54,16 @@
                     <div class="sidebar-wrapper">
                         <div class="user">
                             <div class="photo">
-                                <img src="../assets/img/faces/avatar.jpg" />
+                                
                             </div>
                             <div class="user-info">
                                 <a data-toggle="collapse" href="#collapseExample" class="username">
                                     <span>
-                                        <?=$entityUser->euser->euser_name." ".$entityUser->euser->euser_lastname?>
-                                        <b class="caret"></b>
+                                        <?=$entityUser->euser->euser_name." ".$entityUser->euser->euser_lastname?>                                        
                                     </span>
                                 </a>
-                                <div class="collapse" id="collapseExample">
-                                    <ul class="nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="sidebar-mini"> MP </span>
-                                                <span class="sidebar-normal"> My Profile </span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <span class="sidebar-mini"> EP </span>
-                                                <span class="sidebar-normal"> Edit Profile </span>
-                                            </a>
-                                        </li>
-                                        <?php if (Yii::app()->user->checkAccess("SuperAdministrador")): ?>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">
-                                                    <span class="sidebar-mini"> S </span>
-                                                    <span class="sidebar-normal"> Settings </span>
-                                                </a>
-                                            </li>
-                                        <?php endif; ?>
-                                    </ul>
-                                </div>
                             </div>
-                        </div>
-                        <ul class="nav">
-                            <li class="nav-item active  ">
-                                <a class="nav-link" href="#0">
-                                    <i class="material-icons">dashboard</i>
-                                    <p>Dashboard</p>
-                                </a>
-                            </li>
-                            <!-- your sidebar here -->
-                        </ul>
+                        </div>                    
                     </div>
                 </div>
                 <div class="main-panel">
@@ -120,40 +86,8 @@
                                 <span class="navbar-toggler-icon icon-bar"></span>
                             </button>
                             <div class="collapse navbar-collapse justify-content-end">
-                                <form class="navbar-form">
-                                    <div class="input-group no-border">
-                                        <input type="text" value="" class="form-control" placeholder="Search...">
-                                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                            <i class="material-icons">search</i>
-                                            <div class="ripple-container"></div>
-                                        </button>
-                                    </div>
-                                </form>
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#pablo">
-                                            <i class="material-icons">dashboard</i>
-                                            <p class="d-lg-none d-md-block">
-                                                Stats
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="material-icons">notifications</i>
-                                            <span class="notification">5</span>
-                                            <p class="d-lg-none d-md-block">
-                                                Some Actions
-                                            </p>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                            <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                                            <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                                            <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                                            <a class="dropdown-item" href="#">Another Notification</a>
-                                            <a class="dropdown-item" href="#">Another One</a>
-                                        </div>
-                                    </li>
+                                
+                                <ul class="navbar-nav">                                                                       
                                     <li class="nav-item dropdown">
                                         <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="material-icons">person</i>
@@ -161,10 +95,7 @@
                                                 Account
                                             </p>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                            <a class="dropdown-item" href="#">Profile</a>
-                                            <a class="dropdown-item" href="#">Settings</a>
-                                            <div class="dropdown-divider"></div>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">                                            
                                             <a class="dropdown-item" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/logout">Salir</a>
                                         </div>
                                     </li>
@@ -212,6 +143,8 @@
             <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/material-dashboard.js?v=2.1.0" type="text/javascript"></script>               
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/bootstrap-notify.js"></script>
+            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/plugins/moment.min.js"></script>
+            <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/core/loadingoverlay.min.js"></script>
             <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/Telemed.js"></script>
         </body>
     <?php else: ?>

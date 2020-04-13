@@ -147,4 +147,54 @@ class SiteController extends Controller{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+        
+        public function actionRemoveAnchorage(){
+            $response=array();
+            $response["status"]="success";
+            $response["msg"]="Elemento removido con éxito";
+            $viewName=Yii::app()->request->getPost("anchorName");
+            $modelAnchorage= Anchorage::model()->findByAttributes(array("anchorage_name"=>$viewName));
+            if(!$modelAnchorage){
+                $response["status"]="warning";
+                $response["msg"]="El elemento no existe, no puede ser removido";
+            }
+            else{
+                if(!$modelAnchorage->delete()){
+                    $response["status"]="danger";
+                    $response["msg"]="El elemento no fue removido";
+                }
+            }
+            echo json_encode($response);
+        }
+        
+        public function actionAnchorageAtStart(){
+            $response=array();
+            $response["status"]="success";
+            $response["msg"]="Elemento anclado al inicio";
+            $controllerName=Yii::app()->request->getPost("controllerName");
+            $viewName=Yii::app()->request->getPost("viewName");
+            $nameAnchor=Yii::app()->request->getPost("nameAnchor");
+            $serviceEntityId=Yii::app()->request->getPost("serviceEntityId");
+            $params=Yii::app()->request->getPost("params");
+            $modelAnchorage= Anchorage::model()->findByAttributes(array("service_entity_id"=>$serviceEntityId,"anchorage_name"=>$nameAnchor));
+            if($modelAnchorage){
+                $response["status"]="warning";
+                $response["msg"]="El elemento ya había sido anclado al inicio";
+            }
+            else{
+                $newModelAnchorage=new Anchorage();
+                $newModelAnchorage->service_entity_id=$serviceEntityId;
+                $newModelAnchorage->anchorage_controller=$controllerName;
+                $newModelAnchorage->anchorage_view=$viewName;
+                $newModelAnchorage->anchorage_params= json_encode($params);
+                $newModelAnchorage->anchorage_name=$nameAnchor;
+                if(!$newModelAnchorage->save()){
+                    $response["status"]="danger";
+                    $response["msg"]="No se ha podido anclar el elemento";
+                }
+            }
+            echo json_encode($response);
+        }
+        
+       
 }

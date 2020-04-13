@@ -1,26 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "measurei".
+ * This is the model class for table "suscriptor".
  *
- * The followings are the available columns in table 'measurei':
- * @property integer $measure_id
- * @property integer $magnitude_id
- * @property integer $reading_id
- * @property string $measure_reading
+ * The followings are the available columns in table 'suscriptor':
+ * @property integer $suscriptor_id
+ * @property string $suscriptor_code
+ * @property string $suscriptor_name
+ * @property string $suscriptor_address
+ * @property string $suscriptor_celphone
  *
  * The followings are the available model relations:
- * @property Magnitude $magnitude
- * @property Reading $reading
+ * @property EntitySuscriptor[] $entitySuscriptors
  */
-class Measure extends CActiveRecord
+class Suscriptor extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'measure';
+		return 'suscriptor';
 	}
 
 	/**
@@ -31,11 +31,12 @@ class Measure extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('magnitude_id, reading_id', 'numerical', 'integerOnly'=>true),
-			array('measure_reading', 'safe'),
+			array('suscriptor_code, suscriptor_celphone', 'length', 'max'=>50),
+			array('suscriptor_name', 'length', 'max'=>100),
+			array('suscriptor_address', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('measure_id, magnitude_id, reading_id, measure_reading', 'safe', 'on'=>'search'),
+			array('suscriptor_id, suscriptor_code, suscriptor_name, suscriptor_address, suscriptor_celphone', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +48,7 @@ class Measure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'magnitude' => array(self::BELONGS_TO, 'Magnitude', 'magnitude_id'),
-			'reading' => array(self::BELONGS_TO, 'Reading', 'reading_id'),
+			'entitySuscriptors' => array(self::HAS_MANY, 'EntitySuscriptor', 'suscriptor_id'),
 		);
 	}
 
@@ -58,10 +58,11 @@ class Measure extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'measure_id' => 'Measure',
-			'magnitude_id' => 'Magnitude',
-			'reading_id' => 'Reading',
-			'measure_reading' => 'Measure Reading',
+			'suscriptor_id' => 'Suscriptor',
+			'suscriptor_code' => 'Suscriptor Code',
+			'suscriptor_name' => 'Suscriptor Name',
+			'suscriptor_address' => 'Suscriptor Address',
+			'suscriptor_celphone' => 'Suscriptor Celphone',
 		);
 	}
 
@@ -83,10 +84,11 @@ class Measure extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('measure_id',$this->measure_id);
-		$criteria->compare('magnitude_id',$this->magnitude_id);
-		$criteria->compare('reading_id',$this->reading_id);
-		$criteria->compare('measure_reading',$this->measure_reading,true);
+		$criteria->compare('suscriptor_id',$this->suscriptor_id);
+		$criteria->compare('suscriptor_code',$this->suscriptor_code,true);
+		$criteria->compare('suscriptor_name',$this->suscriptor_name,true);
+		$criteria->compare('suscriptor_address',$this->suscriptor_address,true);
+		$criteria->compare('suscriptor_celphone',$this->suscriptor_celphone,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -97,7 +99,7 @@ class Measure extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Measure the static model class
+	 * @return Suscriptor the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

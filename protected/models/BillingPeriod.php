@@ -1,26 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "measurei".
+ * This is the model class for table "billing_period".
  *
- * The followings are the available columns in table 'measurei':
- * @property integer $measure_id
- * @property integer $magnitude_id
- * @property integer $reading_id
- * @property string $measure_reading
+ * The followings are the available columns in table 'billing_period':
+ * @property integer $billing_period_id
+ * @property string $billing_period
+ * @property string $periods_for_critic
  *
  * The followings are the available model relations:
- * @property Magnitude $magnitude
- * @property Reading $reading
+ * @property ServiceEntity[] $serviceEntities
  */
-class Measure extends CActiveRecord
+class BillingPeriod extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'measure';
+		return 'billing_period';
 	}
 
 	/**
@@ -31,11 +29,11 @@ class Measure extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('magnitude_id, reading_id', 'numerical', 'integerOnly'=>true),
-			array('measure_reading', 'safe'),
+			array('billing_period', 'required'),
+			array('periods_for_critic', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('measure_id, magnitude_id, reading_id, measure_reading', 'safe', 'on'=>'search'),
+			array('billing_period_id, billing_period, periods_for_critic', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,8 +45,7 @@ class Measure extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'magnitude' => array(self::BELONGS_TO, 'Magnitude', 'magnitude_id'),
-			'reading' => array(self::BELONGS_TO, 'Reading', 'reading_id'),
+			'serviceEntities' => array(self::MANY_MANY, 'ServiceEntity', 'billing_period_service_entity(billing_period_id, service_entity_id)'),
 		);
 	}
 
@@ -58,10 +55,9 @@ class Measure extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'measure_id' => 'Measure',
-			'magnitude_id' => 'Magnitude',
-			'reading_id' => 'Reading',
-			'measure_reading' => 'Measure Reading',
+			'billing_period_id' => 'Billing Period',
+			'billing_period' => 'Billing Period',
+			'periods_for_critic' => 'Periods For Critic',
 		);
 	}
 
@@ -83,10 +79,9 @@ class Measure extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('measure_id',$this->measure_id);
-		$criteria->compare('magnitude_id',$this->magnitude_id);
-		$criteria->compare('reading_id',$this->reading_id);
-		$criteria->compare('measure_reading',$this->measure_reading,true);
+		$criteria->compare('billing_period_id',$this->billing_period_id);
+		$criteria->compare('billing_period',$this->billing_period,true);
+		$criteria->compare('periods_for_critic',$this->periods_for_critic,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -97,7 +92,7 @@ class Measure extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Measure the static model class
+	 * @return BillingPeriod the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

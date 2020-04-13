@@ -53,15 +53,27 @@ return array(
 		// 	'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		// ),
 		// uncomment the following to use a MySQL database
-
-		'db'=>array(
-			'connectionString' => 'pgsql:host='.getenv("TELEMED_HOST").';dbname='.getenv("TELEMED_DB"),
+                'db'=>array(
+			'connectionString' => 'pgsql:host=telemed.cw2b3egzsemr.us-west-2.rds.amazonaws.com;dbname=telemed',
 			// 'emulatePrepare' => true,
-			'username' => getenv("TELEMED_UNAME"),
-			'password' => getenv("TELEMED_PSSWD"),
+			'username' => 'maoknox',
+			'password' => '7gpqtmAFB13Fg4i0',
 			'charset' => 'utf8',
 		),
-		
+//		'db'=>array(
+//			'connectionString' => 'pgsql:host='.getenv("TELEMED_HOST").';dbname='.getenv("TELEMED_DB"),
+//			// 'emulatePrepare' => true,
+//			'username' => getenv("TELEMED_UNAME"),
+//			'password' => getenv("TELEMED_PSSWD"),
+//			'charset' => 'utf8',
+//		),
+//		'db'=>array(
+//			'connectionString' => 'pgsql:host='.getenv("ELEPH_HOST").';port=5432;dbname='.getenv("ELEPH_DB"),
+//			// 'emulatePrepare' => true,
+//			'username' => getenv("ELEPH_UNAME"),
+//			'password' => getenv("ELEPH_PSSWD"),
+//			'charset' => 'utf8',
+//		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
