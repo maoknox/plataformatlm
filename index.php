@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('America/Bogota');
 // change the following paths if necessary
 $yii=dirname(__FILE__).'/vendor/square1-io/yii-framework/yii.php';
 $config=dirname(__FILE__).'/protected/config/main.php';

@@ -76,7 +76,7 @@ var ViewMeterData = function(){
         var lng="";
         //In this case it gets the address from an element on the page, but obviously you  could just pass it to the method instead
         console.log(self.div.find("#city").val()+" "+self.div.find("#address").val());
-        geocoder.geocode( { 'address' : self.div.find("#city").val()+" "+self.div.find("#address").val() }, function( results, status ) {
+        geocoder.geocode( { 'address' : "Colombia "+self.div.find("#city").val()+" "+self.div.find("#address").val() }, function( results, status ) {
             if( status == google.maps.GeocoderStatus.OK ) {
 
                 //In this case it creates a marker, but you can get the lat and lng from the location.LatLng
