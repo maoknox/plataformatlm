@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top text-white">
         <div class="container">
             <div class="navbar-wrapper">
-                <a class="navbar-brand" href="#pablo">Página de acceso</a>
+                <a class="navbar-brand" href="#pablo">Acceso a Telemed</a>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="sr-only">Toggle navigation</span>
@@ -88,13 +88,13 @@
                 </div>
             </div>
             <footer class="footer">
-                <div class="container">                    
+                <div class="container">                   
                     <div class="copyright float-right">
                         &copy;
                         <script>
                             document.write(new Date().getFullYear())
                         </script>, creado por 
-                        <a href="https://iktronik.com" target="_blank">Ingetronik</a>.
+                        <a href="http://iktronik.com" target="_blank">INGETRONIK</a>.
                     </div>
                 </div>
             </footer>
@@ -117,9 +117,10 @@
     <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/material-dashboard.js?v=2.1.0" type="text/javascript"></script>
     <!-- Material Dashboard DEMO methods, don't include it in your project! -->
     <!-- <script src="../../assets/demo/demo.js"></script> -->
+    
     <script>
-        $(document).ready(function () {
-            $('.card').removeClass('card-hidden');           
+        $(document).ready(function () {            
+                $('.card').removeClass('card-hidden');
         });
     </script>
 </body>
