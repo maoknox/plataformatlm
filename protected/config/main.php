@@ -67,6 +67,13 @@ return array(
 //			'password' => getenv("ELEPH_PSSWD"),
 //			'charset' => 'utf8',
 //		),
+//                'db'=>array(
+//			'connectionString' => 'pgsql:host=localhost;port=5432;dbname=telemed',
+//			// 'emulatePrepare' => true,
+//			'username' => 'maoknox',
+//			'password' => 'Nevulos$',
+//			'charset' => 'utf8',
+//		),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -96,7 +103,7 @@ return array(
             'clientScript'=>array(
                     'packages'=>array(
                         'jquery'=>array(
-                            'baseUrl'=>'https://code.jquery.com/',
+                            'baseUrl'=>'https://telemedagua.herokuapp.com/js/',
                             'js'=>array('jquery-2.2.3.min.js'),
                         )
                     ),

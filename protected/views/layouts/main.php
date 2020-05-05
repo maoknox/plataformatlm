@@ -25,7 +25,7 @@
         <!--Confirm css-->
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/plugins/jquery-confirm.min.css" />
         <!--     Fonts and icons     -->
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/fonts-google.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
         <!-- Material Kit CSS -->
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/material-dashboard.css?v=2.1.0" />
@@ -125,7 +125,7 @@
                                 <script>
                                     document.write(new Date().getFullYear())
                                 </script>, made with <i class="material-icons">favorite</i> by
-                                <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+                                <!--<a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.-->
                             </div>
                             <!-- your footer here -->
                         </div>
